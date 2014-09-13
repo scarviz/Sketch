@@ -17,3 +17,5 @@ TODO
 1. Bluetooth処理のService化
 2. 端末とWearのSyncをDataItemで行っているが、 MessageApiを使用する(DeviceIdは端末とWearのonDataChangedが両方呼ばれるため)
 3. 端末間通信をBluetoothで行っているが、WifiP2Pなど複数台とやりとりできるようにする(選択できるようにする)
+4. プロットした座標にタイムスタンプを持たせ、3秒経ったら自動的に削除する
+5. 描画の高速化
