@@ -6,6 +6,7 @@ package com.scarviz.sketch.common;
 public class Define {
 	public final static String DATA_MAP_POINT_PATH = "/point";
 
+	public final static String DATA_MANAGE_ID = "DATA_MANAGE_ID";
 	public final static String POINT_X = "POINT_X";
 	public final static String POINT_Y = "POINT_Y";
 }

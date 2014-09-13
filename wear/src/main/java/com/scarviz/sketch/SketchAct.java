@@ -29,6 +29,7 @@ import java.lang.ref.WeakReference;
 public class SketchAct extends Activity implements GoogleApiClient.ConnectionCallbacks,
 		GoogleApiClient.OnConnectionFailedListener, DataApi.DataListener {
 	private static final String TAG = "SketchAct";
+	private static final int DATA_MANAGE_ID = 5678;
 
 	private SketchHandler mSketchHandler;
 	private DrawView mDrawview;
@@ -111,6 +112,11 @@ public class SketchAct extends Activity implements GoogleApiClient.ConnectionCal
 		Log.d(TAG, "DataItem changed: " + path);
 		if (Define.DATA_MAP_POINT_PATH.equals(path)) {
 			DataMapItem dataMapItem = DataMapItem.fromDataItem(dataItem);
+			int id = dataMapItem.getDataMap().getInt(Define.DATA_MANAGE_ID);
+			if(id == DATA_MANAGE_ID){
+				return;
+			}
+
 			final int point_x = dataMapItem.getDataMap().getInt(Define.POINT_X);
 			final int point_y = dataMapItem.getDataMap().getInt(Define.POINT_Y);
 			runOnUiThread(new Runnable() {
@@ -152,6 +158,7 @@ public class SketchAct extends Activity implements GoogleApiClient.ConnectionCal
 
 						Log.d(TAG, "putDataItem point_x :" + point.x + " ,point_y:" + point.y);
 						PutDataMapRequest dataMap = PutDataMapRequest.create(Define.DATA_MAP_POINT_PATH);
+						dataMap.getDataMap().putInt(Define.DATA_MANAGE_ID, DATA_MANAGE_ID);
 						dataMap.getDataMap().putInt(Define.POINT_X, point.x);
 						dataMap.getDataMap().putInt(Define.POINT_Y, point.y);
 						PutDataRequest request = dataMap.asPutDataRequest();
