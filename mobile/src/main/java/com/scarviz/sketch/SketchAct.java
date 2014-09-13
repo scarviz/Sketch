@@ -196,6 +196,7 @@ public class SketchAct extends Activity implements GoogleApiClient.ConnectionCal
 		if(mBtHelper != null) {
 			mBtHelper.Cancel();
 		}
+		super.onDestroy();
 	}
 
 	@Override

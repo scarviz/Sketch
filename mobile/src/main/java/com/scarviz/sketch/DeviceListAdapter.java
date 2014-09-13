@@ -1,4 +1,4 @@
-﻿package com.scarviz.sketch;
+package com.scarviz.sketch;
 
 import android.app.Activity;
 import android.bluetooth.BluetoothDevice;
@@ -60,11 +60,11 @@ public class DeviceListAdapter extends BaseAdapter {
 			viewHolder.deviceName = (TextView) view.findViewById(R.id.device_name);
 			view.setTag(viewHolder);
 		}
-		//　初回以外はインフレートしない。
+		// 初回以外はインフレートしない。
 		else {
 			viewHolder = (ViewHolder) view.getTag();
 		}
-		//　各値をセット
+		// 各値をセット
 		BluetoothDevice device = mLeDevices.get(i);
 		final String deviceName = device.getName();
 		if (deviceName != null && deviceName.length() > 0)
