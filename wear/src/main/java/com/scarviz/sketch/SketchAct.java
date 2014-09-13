@@ -16,6 +16,8 @@ import com.google.android.gms.common.api.PendingResult;
 import com.google.android.gms.wearable.DataApi;
 import com.google.android.gms.wearable.DataEvent;
 import com.google.android.gms.wearable.DataEventBuffer;
+import com.google.android.gms.wearable.DataItem;
+import com.google.android.gms.wearable.DataMapItem;
 import com.google.android.gms.wearable.PutDataMapRequest;
 import com.google.android.gms.wearable.PutDataRequest;
 import com.google.android.gms.wearable.Wearable;
@@ -95,7 +97,29 @@ public class SketchAct extends Activity implements GoogleApiClient.ConnectionCal
 				Log.d(TAG, "DataItem deleted: " + event.getDataItem().getUri());
 			} else if (event.getType() == DataEvent.TYPE_CHANGED) {
 				Log.d(TAG, "DataItem changed: " + event.getDataItem().getUri());
+				SetPoint(event.getDataItem().getUri().getPath(), event.getDataItem());
 			}
+		}
+	}
+
+	/**
+	 * Pointを設定する
+	 * @param path
+	 * @param dataItem
+	 */
+	private void SetPoint(String path, DataItem dataItem){
+		Log.d(TAG, "DataItem changed: " + path);
+		if (Define.DATA_MAP_POINT_PATH.equals(path)) {
+			DataMapItem dataMapItem = DataMapItem.fromDataItem(dataItem);
+			final int point_x = dataMapItem.getDataMap().getInt(Define.POINT_X);
+			final int point_y = dataMapItem.getDataMap().getInt(Define.POINT_Y);
+			runOnUiThread(new Runnable() {
+				@Override
+				public void run() {
+					Point point = new Point(point_x, point_y);
+					mDrawview.SetPoint(point);
+				}
+			});
 		}
 	}
 

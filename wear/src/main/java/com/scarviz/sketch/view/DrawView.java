@@ -88,19 +88,28 @@ public class DrawView extends View {
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
 		Point point = new Point((int)event.getX(),(int)event.getY());
+		DrawPoint(point, (event.getAction() == MotionEvent.ACTION_UP));
+
+		SendMessage(TOUCH_POINT, point);
+		return true;
+	}
+
+	/**
+	 * Pointを描画する
+	 * @param point
+	 * @param isActionUp
+	 */
+	private void DrawPoint(Point point, boolean isActionUp){
 		// タッチした座標を格納する
 		mDrawPoint.add(point);
 
 		// タッチを止めた場合(画面から離した場合)
-		if (event.getAction() == MotionEvent.ACTION_UP) {
+		if (isActionUp) {
 			mDrawPoint.add(new Point(-1, -1));
 		}
 
 		// 再描画
 		invalidate();
-
-		SendMessage(TOUCH_POINT, point);
-		return true;
 	}
 
 	/**
@@ -125,6 +134,14 @@ public class DrawView extends View {
 	 */
 	public void SetHandler(Handler handler) {
 		mHandler = handler;
+	}
+
+	/**
+	 * Pointを設定する
+	 * @param point
+	 */
+	public void SetPoint(Point point){
+		DrawPoint(point, false);
 	}
 
 	/**
