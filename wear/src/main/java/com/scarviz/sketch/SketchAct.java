@@ -146,11 +146,11 @@ public class SketchAct extends Activity implements GoogleApiClient.ConnectionCal
 					if(msg.obj != null) {
 						Point point = (Point)msg.obj;
 						if(point == null){
-							Log.d(act.TAG, "point is null");
+							Log.d(TAG, "point is null");
 							break;
 						}
 
-						Log.d(act.TAG, "putDataItem point_x :" + point.x + " ,point_y:" + point.y);
+						Log.d(TAG, "putDataItem point_x :" + point.x + " ,point_y:" + point.y);
 						PutDataMapRequest dataMap = PutDataMapRequest.create(Define.DATA_MAP_POINT_PATH);
 						dataMap.getDataMap().putInt(Define.POINT_X, point.x);
 						dataMap.getDataMap().putInt(Define.POINT_Y, point.y);
