@@ -12,6 +12,7 @@ import android.graphics.Point;
 import android.os.Handler;
 import android.os.Message;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -88,7 +89,22 @@ public class DrawView extends View {
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
 		Point point = new Point((int)event.getX(),(int)event.getY());
-		DrawPoint(point, (event.getAction() == MotionEvent.ACTION_UP));
+		Log.d("onTouchEvent", String.valueOf(event.getAction()));
+		// 途切れたかどうか
+		boolean isPause = false;
+		switch (event.getAction()){
+			// 動いている場合
+			case MotionEvent.ACTION_MOVE:
+				isPause = false;
+				break;
+			// タッチされた、離した場合
+			case MotionEvent.ACTION_DOWN:
+			case MotionEvent.ACTION_UP:
+				isPause = true;
+				break;
+		}
+
+		DrawPoint(point, isPause);
 
 		SendMessage(TOUCH_POINT, point);
 		return true;
@@ -97,15 +113,15 @@ public class DrawView extends View {
 	/**
 	 * Pointを描画する
 	 * @param point
-	 * @param isActionUp
+	 * @param isPause
 	 */
-	private void DrawPoint(Point point, boolean isActionUp){
-		// タッチした座標を格納する
-		mDrawPoint.add(point);
-
-		// タッチを止めた場合(画面から離した場合)
-		if (isActionUp) {
+	private void DrawPoint(Point point, boolean isPause){
+		// 止めた場合
+		if (isPause) {
 			mDrawPoint.add(new Point(-1, -1));
+		} else {
+			// タッチした座標を格納する
+			mDrawPoint.add(point);
 		}
 
 		// 再描画
