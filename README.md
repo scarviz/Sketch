@@ -15,5 +15,5 @@ AndroidWear間で、画面に描かれた絵や文字を同期するアプリです。
 TODO
 ----
 1. Bluetooth処理のService化
-2. 端末とWearのSyncをDataItemで行っているが、 MessageApiを使用する(DeviceIdは端末とWearのonDataChangedが両方呼ばれるため)
+2. 端末とWearのSyncをDataItemで行っているが、 MessageApiを使用する(DATA_MANAGE_IDは端末とWearのonDataChangedが両方呼ばれるため)
 3. 端末間通信をBluetoothで行っているが、WifiP2Pなど複数台とやりとりできるようにする(選択できるようにする)
